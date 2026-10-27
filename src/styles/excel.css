@@ -1,0 +1,130 @@
+:root {
+  --bg: #f3f3f3;
+  --ribbon-bg: #f3f3f3;
+  --accent: #217346;
+  --accent-light: #e7f0ea;
+  --border: #d0d0d0;
+  --cell-border: #e0e0e0;
+  --header-bg: #f2f2f2;
+  --header-text: #404040;
+  --selection: #217346;
+  --selection-fill: rgba(33,115,70,0.15);
+  --font: "Segoe UI", "Calibri", sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; padding: 0; font-family: var(--font); background: var(--bg); overflow: hidden; }
+
+.app {
+  display: flex; flex-direction: column; height: 100vh; width: 100vw;
+}
+
+/* Title bar */
+.titlebar {
+  height: 30px; background: #217346; color: #fff; display: flex; align-items: center; padding: 0 12px; font-size: 13px; font-weight: 600;
+}
+.titlebar .title { flex: 1; text-align: center; }
+
+/* Ribbon */
+.ribbon {
+  background: var(--ribbon-bg); border-bottom: 1px solid var(--border);
+}
+.ribbon-tabs {
+  display: flex; gap: 2px; padding: 0 8px; background: #fff; border-bottom: 1px solid var(--border);
+}
+.ribbon-tab {
+  padding: 6px 14px; font-size: 13px; cursor: pointer; border: 1px solid transparent; border-bottom: none; background: transparent;
+}
+.ribbon-tab.active { background: var(--ribbon-bg); border-color: var(--border); font-weight: 600; }
+.ribbon-body {
+  padding: 6px 8px; display: flex; gap: 12px; align-items: stretch; min-height: 78px;
+}
+.ribbon-group {
+  display: flex; flex-direction: column; border-right: 1px solid var(--border); padding: 0 8px;
+}
+.ribbon-group-title { font-size: 10px; color: #666; text-align: center; margin-top: 4px; }
+.ribbon-row { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
+.ribbon-btn {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4px 8px; font-size: 11px; cursor: pointer; border: 1px solid transparent; background: transparent; min-width: 44px;
+}
+.ribbon-btn:hover { background: #e5e5e5; border-color: #ccc; }
+.ribbon-btn .icon { font-size: 18px; margin-bottom: 2px; }
+.ribbon-sep { width: 1px; background: var(--border); margin: 0 4px; }
+.ribbon-input { padding: 2px 4px; font-size: 12px; border: 1px solid var(--border); }
+
+/* Formula bar */
+.formulabar {
+  display: flex; align-items: center; border-bottom: 1px solid var(--border); background: #fff; height: 26px;
+}
+.formulabar .namebox {
+  width: 90px; border-right: 1px solid var(--border); padding: 2px 6px; font-size: 12px; text-align: center;
+}
+.formulabar .fx { width: 24px; text-align: center; color: #217346; font-style: italic; font-weight: bold; border-right: 1px solid var(--border); }
+.formulabar .input {
+  flex: 1; border: none; outline: none; padding: 2px 6px; font-size: 13px; font-family: Consolas, monospace;
+}
+
+/* Grid */
+.grid-outer {
+  flex: 1; display: grid;
+  grid-template-columns: 40px 1fr;
+  grid-template-rows: 20px 1fr;
+  overflow: hidden; background: #fff;
+}
+.grid-corner { background: var(--header-bg); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.grid-colheader { overflow: hidden; border-bottom: 1px solid var(--border); background: var(--header-bg); }
+.grid-rowheader { overflow: hidden; border-right: 1px solid var(--border); background: var(--header-bg); }
+.grid-body { overflow: auto; position: relative; }
+
+.col-head, .row-head {
+  display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--header-text); border-right: 1px solid var(--cell-border); border-bottom: 1px solid var(--cell-border); user-select: none;
+}
+.col-head { border-bottom: 1px solid var(--border); }
+.row-head { border-right: 1px solid var(--border); }
+
+.cell {
+  border-right: 1px solid var(--cell-border); border-bottom: 1px solid var(--cell-border);
+  padding: 1px 3px; font-size: 12px; overflow: hidden; white-space: nowrap; cursor: cell; position: relative;
+}
+.cell.selected { background: var(--selection-fill); }
+.cell.active { box-shadow: inset 0 0 0 2px var(--selection); z-index: 2; }
+.cell-text { display: block; overflow: hidden; text-overflow: ellipsis; }
+.cell-editor {
+  position: absolute; inset: 0; border: 2px solid var(--selection); padding: 1px 3px; font-size: 12px; outline: none; width: 100%; height: 100%; font-family: inherit;
+}
+
+/* Sheet tabs */
+.sheetbar {
+  height: 30px; background: #fff; border-top: 1px solid var(--border); display: flex; align-items: center; padding: 0 8px; gap: 4px;
+}
+.sheet-tab {
+  padding: 4px 12px; font-size: 12px; cursor: pointer; border: 1px solid transparent; border-radius: 4px 4px 0 0;
+}
+.sheet-tab.active { background: var(--accent-light); border-color: var(--border); font-weight: 600; color: var(--accent); }
+.sheet-add { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid var(--border); background: #fff; }
+.sheet-menu { margin-left: auto; display: flex; align-items: center; gap: 8px; font-size: 12px; }
+
+/* Status bar */
+.statusbar {
+  height: 24px; background: var(--accent); color: #fff; display: flex; align-items: center; padding: 0 12px; font-size: 12px; gap: 16px;
+}
+.statusbar .zoom { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+
+/* Dialog */
+.dialog-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; z-index: 100; }
+.dialog { background: #fff; border-radius: 6px; padding: 16px; min-width: 320px; box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
+.dialog h3 { margin: 0 0 12px; font-size: 15px; }
+.dialog input { width: 100%; padding: 6px; margin-bottom: 12px; border: 1px solid var(--border); }
+.dialog-actions { display: flex; justify-content: flex-end; gap: 8px; }
+.dialog button { padding: 6px 14px; cursor: pointer; }
+
+.contextmenu { position: fixed; background: #fff; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 200; min-width: 160px; }
+.contextmenu button { display: block; width: 100%; text-align: left; padding: 6px 12px; border: none; background: transparent; cursor: pointer; font-size: 12px; }
+.contextmenu button:hover { background: #f0f0f0; }
+
+/* Charts */
+.chart-box { border: 1px solid var(--border); background: #fff; padding: 8px; margin: 8px; }
+
+/* Utility */
+.btn { padding: 4px 10px; cursor: pointer; border: 1px solid var(--border); background: #fff; font-size: 12px; }
+.btn:hover { background: #f0f0f0; }
